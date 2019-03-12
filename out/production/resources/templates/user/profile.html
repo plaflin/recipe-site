@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+
+<section>
+    <div class="grid-container">
+        <div th:replace="layout :: logo"></div>
+        <div th:replace="layout :: flash"></div>
+
+        <div class="grid-100">
+
+            <div class="recipes" th:object="${user}">
+                <div class="grid-100 row controls">
+                    <div class="grid-100">
+                        <h2 th:text="*{username}"> Chandra S. </h2>
+                    </div>
+                </div>
+                <div class="clear"></div>
+
+                <div class="grid-100 row addHover" th:each="recipe : *{favorites}">
+                    <a th:href="@{|/recipes/${recipe.id}|}">
+                        <div class="grid-70">
+                            <p>
+                                <span th:text="${recipe.name}"><img th:src="@{/assets/images/favorite.svg}"
+                                                                    height="12px"> </span>
+                            </p>
+                        </div>
+                    </a>
+                    <div class="hoverBlock">
+                        <div class="grid-30">
+                            <div class="flush-right">
+                                <p>
+                                    <a th:href="@{|/recipes/${recipe.id}/edit|}"> <img
+                                            th:src="@{/assets/images/edit.svg}" height="12px"> Edit </a>
+                                    <a th:href="@{|/recipes/${recipe.id}/delete|}"> <img
+                                            th:src="@{/assets/images/delete.svg}" height="12px"> Delete </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+
+                <div class="row">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div th:replace="layout :: scripts"></div>
+</footer>
+
+</body>
+
+</html>
