@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+
+<section>
+    <div class="grid-container">
+        <div th:replace="layout :: logo"></div>
+        <div th:replace="layout :: flash"></div>
+        <div class="grid-100">
+
+            <div class="recipes">
+
+                <div class="grid-100 row controls">
+                    <div class="grid-20">
+                        <p>
+                            <select id="select-category">
+                                <option th:each="category : ${categories}" th:value="${category}"
+                                        th:text="${category.name}" th:selected="${category} == ${selectedCategory}">
+                                    Breakfast
+                                </option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="grid-30">
+                        <p>
+                            <input id="search" placeholder="Search"/>
+                        </p>
+                    </div>
+                    <div class="grid-20">
+                        <p>
+                            <select id="search-mode">
+                                <option value="description">by description</option>
+                                <option value="ingredient">by ingredient</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="grid-30">
+                        <div class="flush-right">
+                            <p class="add-button">
+                                <a class="button" th:href="@{/recipes/add}">+ Add Recipe</a>
+                            </p>
+                        </div>
+                    </div>
+                </div> <div class="clear"></div>
+
+                <div class="grid-100 row addHover" th:each="recipe : ${recipes}">
+                    <a th:href="@{|/recipes/${recipe.id}|}">
+                        <div class="grid-70">
+                            <p>
+                                <img th:if="${recipe.favoritedName.contains(#authentication.name)}"
+                                     th:src="@{/assets/images/favorited.svg}" height="12px">
+                                <img th:if="${!recipe.favoritedName.contains(#authentication.name)}"
+                                     th:src="@{/assets/images/favorite.svg}" height="12px">
+                                <span th:text="${recipe.name}"> </span>
+                            </p>
+                        </div>
+                    </a>
+                    <div class="hoverBlock">
+                        <div class="grid-30">
+                            <div class="flush-right">
+                                <p>
+                                    <a th:href="@{|/recipes/${recipe.id}/edit|}"> <img th:src="@{/assets/images/edit.svg}" height="12px"> Edit </a>
+                                    <a th:href="@{|/recipes/${recipe.id}/delete|}"> <img th:src="@{/assets/images/delete.svg}" height="12px"> Delete </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div> <div class="clear"></div>
+
+                <div class="row">&nbsp;</div>
+
+            </div> <!-- recipes -->
+        </div> <!-- grid-100 -->
+    </div> <!-- grid-container -->
+
+
+    </div>
+</section>
+
+<footer>
+    <div th:replace="layout :: scripts"></div>
+</footer>
+
+</body>
+
+</html>

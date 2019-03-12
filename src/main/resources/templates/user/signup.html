@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+
+<section>
+    <div class="grid-container">
+
+        <div th:replace="layout :: logo"></div>
+        <div th:replace="layout :: flash"></div>
+
+        <div class="grid-100">
+            <div class="recipes">
+                <form th:object="${user}" th:action="@{/signup}" method="post" enctype="form-data">
+                    <div class="prefix-20 grid-60 suffix-20">
+                        <p>
+                            <input type="text" th:field="*{username}" placeholder="Username"
+                                   th:classappend="${#fields.hasErrors('username')} ? 'error' : '' "/>
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="error-message prefix-20 grid-60 suffix-20" th:if="${#fields.hasErrors('username')}"
+                         th:errors="*{username}"></div>
+                    <div class="clear"></div>
+                    <div class="prefix-20 grid-60 suffix-20">
+                        <p>
+                            <input id="password" type="password" th:field="*{password}" placeholder="Password"
+                                   th:classappend="${#fields.hasErrors('password')} ? 'error' : '' "/>
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="error-message prefix-20 grid-60 suffix-20" th:if="${#fields.hasErrors('password')}"
+                         th:errors="*{password}"></div>
+                    <div class="clear"></div>
+                    <div class="prefix-20 grid-60 suffix-20">
+                        <p>
+                            <input id="confirm-password" type="password" placeholder="Password again"/>
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="prefix-20 grid-60 suffix-20">
+                        <p>
+                            <button id="sign-up" type="submit">Sign-up</button>
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+                </form>
+            </div> <!-- recipes -->
+        </div> <!-- grid-100 -->
+    </div> <!-- grid-container -->
+</section>
+
+<footer>
+    <div th:replace="layout :: scripts"></div>
+</footer>
+
+</body>
+</html>

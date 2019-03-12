@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="head">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Treehouse Recipes</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" th:href="@{/assets/css/unsemantic-grid-responsive.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/styles.css}" />
+</head>
+
+<nav th:fragment="nav">
+    <a sec:authorize="isAnonymous()" th:href="@{/signup}">sign-up</a>
+    <a sec:authorize="isAuthenticated()" sec:authentication="name" th:href="@{/myprofile}"></a>
+    &bull;
+    <a sec:authorize="isAnonymous()" th:href="@{/login}">login</a>
+    <form class="logout" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+        <button type="submit">logout</button>
+    </form>
+
+</nav>
+
+<div th:fragment="logo" class="grid-100">
+    <a th:href="@{/}">
+        <h1>
+            <img th:src="@{/assets/images/chefbot.svg}" height="60px" />
+            <br />
+            Treehouse Recipes
+        </h1>
+    </a>
+</div>
+
+<div th:fragment="flash" th:if="${flash != null}">
+    <div th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}" class="flash"></div>
+</div>
+
+<div th:fragment="scripts">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+</div>
+
+</html>

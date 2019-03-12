@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+
+<section>
+    <div class="grid-container">
+        <div th:replace="layout :: logo"></div>
+        <div th:replace="layout :: flash"></div>
+
+        <div th:object="${recipe}" class="grid-100">
+            <div class="recipes">
+                <div class="grid-100 row controls">
+                    <div class="grid-50">
+                        <h2 th:text="*{name}"> Brioche French Toast with Nutella </h2>
+                    </div>
+                    <div class="grid-50">
+                        <h2 class="flush-right">
+                            <a th:href="@{|/recipes/*{id}/favorite|}">
+                                <img th:if="*{favoritedName.contains(#authentication.name)}"
+                                     th:src="@{/assets/images/favorited.svg}" height="16px">
+                                <img th:if="*{!favoritedName.contains(#authentication.name)}"
+                                     th:src="@{/assets/images/favorite.svg}" height="16px">
+
+                            </a>
+                        </h2>
+                    </div>
+                </div> <div class="clear"></div>
+
+                <div class="grid-100 row">
+                    <div class="grid-20">
+                        <p>
+                            <label> Photo </label>
+                        </p>
+                    </div>
+                    <div class="grid-40" th:if="*{image} != null">
+                        <p>
+                            <img th:src="@{|/recipes/*{id}.png|}" alt="photo" />
+                        </p>
+                    </div>
+                </div> <div class="clear"></div>  <!-- photo -->
+
+                <div class="grid-100 row">
+                    <div class="grid-20">
+                        <p> <label> Name </label> </p>
+                    </div>
+                    <div class="grid-40">
+                        <p th:text="*{name}">
+                            Brioche French Toast with Nutella
+                        </p>
+                    </div>
+                </div> <div class="clear"></div>  <!-- name -->
+
+                <div class="grid-100 row">
+                    <div class="grid-20">
+                        <p><label> Created by </label></p>
+                    </div>
+                    <div class="grid-40">
+                        <p>
+                            <a th:href="@{|/profile/*{createdBy?.username}|}" th:text="*{createdBy?.username}">Livia</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="clear"></div>  <!-- created by -->
+
+                <div class="grid-100 row">
+                    <div class="grid-20">
+                        <p> <label> Description </label> </p>
+                    </div>
+                    <div class="grid-40">
+                        <p th:text="*{description}">
+                            Yummmy dessert toast covered in egg wash and topped with nutella and seasonal fruit.
+                        </p>
+                    </div>
+                </div> <div class="clear"></div>  <!-- description -->
+
+                <div class="grid-100 row">
+                    <div class="grid-20">
+                        <p> <label> Category </label> </p>
+                    </div>
+                    <div class="grid-30">
+                        <p th:text="*{category.name}"> Dessert </p>
+                    </div>
+                </div> <div class="clear"></div>  <!-- category -->
+
+                <div class="grid-100 row">
+                    <div class="grid-20">
+                        <p> <label> Prep Time </label> </p>
+                    </div>
+                    <div class="grid-20">
+                        <p> <span th:text="*{prepTime}">5</span> minutes </p>
+                    </div>
+                </div> <div class="clear"></div>  <!-- prep time -->
+
+                <div class="grid-100 row">
+                    <div class="grid-20">
+                        <p>
+                            <label> Cook Time </label>
+                        </p>
+                    </div>
+                    <div class="grid-20">
+                        <p>
+                            <span th:text="*{cookTime}">15</span> minutes
+                        </p>
+                    </div>
+                </div> <div class="clear"></div>  <!-- cook time -->
+
+                <div class="grid-100 row">
+                    <div class="grid-20">
+                        <p> <label> Ingredients </label> </p>
+                    </div>
+                    <div class="grid-30">
+                        <p> <label> Item </label> </p>
+                    </div>
+                    <div class="grid-30">
+                        <p> <label> Condition </label> </p>
+                    </div>
+                    <div class="grid-20">
+                        <p> <label> Quantity </label> </p>
+                    </div>
+
+                    <div th:each="ingredient : *{ingredients}" class="ingredient-row">
+                        <div class="prefix-20 grid-30">
+                            <p th:text="${ingredient.item}"> Eggs </p>
+                        </div>
+                        <div class="grid-30">
+                            <p th:text="${ingredient.condition}"> Fresh </p>
+                        </div>
+                        <div class="grid-10 suffix-10">
+                            <p th:text="${ingredient.quantity}"> 2 </p>
+                        </div>
+                    </div>
+
+                </div> <div class="clear"></div>  <!-- ingredients -->
+
+                <div class="grid-100 row">
+                    <div class="grid-20">
+                        <p> <label> Steps </label> </p>
+                    </div>
+                    <div class="grid-80">
+                        <p> <label> Description </label> </p>
+                    </div>
+                    <div th:each="step : *{steps}" class="step-row">
+                        <div class="prefix-20 grid-80">
+                            <p th:text="${step.stepName}">
+                                1. Crack your eggs and beat them.
+                            </p>
+                        </div>
+                    </div>
+                </div> <div class="clear"></div>  <!-- steps -->
+
+                <div class="row">&nbsp;</div>
+
+            </div> <!-- recipes -->
+
+        </div> <!-- grid-100 -->
+    </div> <!-- grid-container -->
+
+</section>
+
+<footer>
+    <div th:replace="layout :: scripts"></div>
+</footer>
+
+</body>
+
+</html>

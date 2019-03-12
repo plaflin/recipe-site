@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+
+<section>
+    <div class="grid-container">
+
+        <div th:replace="layout :: logo"></div>
+        <div th:replace="layout :: flash"></div>
+
+        <div class="grid-100">
+            <div class="recipes">
+                <form th:object="${user}" th:action="@{/login}" method="post" enctype="form-data">
+                    <div class="prefix-20 grid-60 suffix-20">
+                        <p>
+                            <input type="text" th:field="*{username}" placeholder="Username"/>
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="prefix-20 grid-60 suffix-20">
+                        <p>
+                            <input type="password" th:field="*{password}" placeholder="Password"/>
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="prefix-20 grid-60 suffix-20">
+                        <p>
+                            <button type="submit">Login</button>
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+                </form>
+            </div> <!-- recipes -->
+        </div> <!-- grid-100 -->
+    </div> <!-- grid-container -->
+</section>
+</body>
+</html>
